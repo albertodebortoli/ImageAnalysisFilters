@@ -7,7 +7,7 @@ Date: august 2008
 Course: Elaborazione delle Immagini (Image Analysis) Università degli studi di Padova, Prof. Paolo Cattani    
 Website: [albertodebortoli.it](http://www.albertodebortoli.it)  
 
-Please refer to the project Wiki at on [GitHub](https://github.com/albertodebortoli/ImageAnalysisFilters/wiki) for description and usage.
+Please refer to the project [Wiki](https://github.com/albertodebortoli/ImageAnalysisFilters/wiki) on [GitHub](https://github.com/albertodebortoli/ImageAnalysisFilters) for description and usage.
 
 
 ##License
