@@ -4,14 +4,14 @@
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the Università degli Studi di Padova nor the
- *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission.
+ *	 * Redistributions of source code must retain the above copyright
+ *	   notice, this list of conditions and the following disclaimer.
+ *	 * Redistributions in binary form must reproduce the above copyright
+ *	   notice, this list of conditions and the following disclaimer in the
+ *	   documentation and/or other materials provided with the distribution.
+ *	 * Neither the name of the Università degli Studi di Padova nor the
+ *	   names of its contributors may be used to endorse or promote products
+ *	   derived from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY Alberto De Bortoli ``AS IS''
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -36,99 +36,104 @@ using namespace std;
 class Image
 {
 	private:
-		// larghezza dell'immagine
+		// width
 		int dimX;
 		
-        // altezza dell'immagine
+		// height
 		int dimY;
 		
-        // array che rappresenta l'immagine in B/N, ovvero la luminosita'
+		// grayscale representation (brightness values)
 		unsigned char* bn;
-        
-        // array che rappresenta l'immagine in RGB interleaved
+		
+		// color RGB interleaved representation
 		unsigned char* rgb;
 		
-		// array che rappresenta l'istogramma della luminosità
-		float* isto;
+		// brightness hystogram
+		float* hysto;
 		
-		// array che rappresenta l'istogramma dei rossi
-		float* istoR;
+		// red hystogram
+		float* hystoR;
 		
-		// array che rappresenta l'istogramma dei verdi
-		float* istoG;
+		// green hystogram
+		float* hystoG;
 		
-		// array che rappresenta l'istogramma dei blu
-		float* istoB;
+		// blue hystogram
+		float* hystoB;
 
 	public:
-		// costruisce una immagine con x in larghezza e y in altezza, tutta nera.
+		// create an image x*y with each pixel black
 		Image(int x = 0, int y = 0);
 		
-		// ritorna la larghezza dell'immagine
+		// getter for width
 		int getX() {
-            return dimX;
-        }
-        
-		// ritorna l'altezza dell'immagine
+			return dimX;
+		}
+		
+		// getter for height
 		int getY() {
-            return dimY;
-        }
-        
-        // imposta il livello di istogramma passato
+			return dimY;
+		}
+		
+		// setter for color hystograms
 		void setIsto(int index, float value, char type) {
-            switch (type){
-                case 'R' : istoR[index] = value; break;
-                case 'G' : istoG[index] = value; break;
-                case 'B' : istoB[index] = value; break;
-                default : isto[index] = value; break;
-            }
-        }
-        
-		// ritorna il livello di istogramma passato
+			switch (type){
+				case 'R' : hystoR[index] = value; break;
+				case 'G' : hystoG[index] = value; break;
+				case 'B' : hystoB[index] = value; break;
+				default : hysto[index] = value; break;
+			}
+		}
+		
+		// getter for color hystograms
 		float getIsto(int index, char type) {
-            switch (type){
-                case 'R' : return istoR[index]; break;
-                case 'G' : return istoG[index]; break;
-                case 'B' : return istoB[index]; break;
-                default : return isto[index]; break;
-            }
-        }
-        
-		// calcola la parte BN a partire da una immagine raw RGB interleaved
+			switch (type){
+				case 'R' : return hystoR[index]; break;
+				case 'G' : return hystoG[index]; break;
+				case 'B' : return hystoB[index]; break;
+				default : return hysto[index]; break;
+			}
+		}
+		
+		// compute grayscale image from color one (RGB interleaved)
 		void FitBN();
-
-		// calcola la parte RGB a partire da una immagine raw BN
+		
+		// compute color image (RGB interleaved) from grayscale one 
 		void FitRGB();
 		
-		// restituisce la luminosita' del pixel all'indice index
-    	unsigned char GetBn(int index) {
-            return bn[index];
-        }
+		// getter for the pixel at the given index
+		unsigned char GetBn(int index) {
+			return bn[index];
+		}
 		
-        // imposta la luminosita' del pixel all'indice index con il valore l
+		// setter for the pixel at the given index
 		void SetBn(int index, int value) {
-            bn[index] = value;
-        }
-        
-		// restituisce il pixel RGB all'indice index, il secondo 
-		// parametro indica quale componente RGB si vuole ottenere
+			bn[index] = value;
+		}
+		
+		// getter for the RGB pixel at the given index 
+		// 'value' indicates the RGB component
+		// 0 means R
+		// 1 means G
+		// 2 means B
 		unsigned char GetRgb(int index, int value) {
-            return rgb[(index)*3 + value];
-        }
-        
-    	// imposta il pixel RGB all'indice index, il secondo
-		// parametro indica quale componente RGB si vuole settare
+			return rgb[(index) * 3 + value];
+		}
+		
+		// setter for the RGB pixel at the given index 
+		// 'rgb_index' indicates the RGB component
+		// 0 means R
+		// 1 means G
+		// 2 means B
 		void SetRgb(int index, int rgb_index, unsigned char value) {
-            rgb[index*3 + rgb_index] = value;
-        }
-        
-        // metodo che inizializza rgb con un file richiesto tramite parametro nome
-		void CaricaImmagine(char* nome, int tipo);
+			rgb[index * 3 + rgb_index] = value;
+		}
 		
-		// metodo che salva rgb sul file richiesto tramite parametro
-		void SalvaImmagine(char* nome, int tipo);
+		// Load the image from the given path
+		void LoadImage(char* nome, int tipo);
 		
-		// distruttore dell'oggetto Immagine
+		// Save the image on disk to the given path
+		void SaveImage(char* nome, int tipo);
+		
 		~Image();
 };
 

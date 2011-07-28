@@ -1,12 +1,11 @@
 #Image Analysis Filters
 
-Author: Alberto De Bortoli
-Date: august 2008
-Course: Elaborazione delle Immagini (Prof. Paolo Cattani) Università degli studi di Padova
-Website: www.albertodebortoli.it  
+A simple C++ project for applying filters to raw images in terminal
 
-Actually the Wiki and the comments in the source code are almost in Italian.  
-Full English translation as soon as possible.
+Author: Alberto De Bortoli  
+Date: august 2008  
+Course: Elaborazione delle Immagini (Image Analysis) Università degli studi di Padova, Prof. Paolo Cattani    
+Website: [albertodebortoli.it](http://www.albertodebortoli.it)  
 
 Please refer to the project Wiki at on [GitHub](https://github.com/albertodebortoli/ImageAnalysisFilters/wiki) for description and usage.
 
