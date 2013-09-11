@@ -29,7 +29,6 @@
 
 using namespace std;
 
-
 Image::Image(int x, int y)
 {
 	bn = new unsigned char[x*y];
@@ -48,10 +47,8 @@ Image::Image(int x, int y)
 	}
 }
 
-
 // For each pixel in the color image (RGB) compute the
 // average and set the value in the grayscale image
-
 void Image::FitBN()
 {
 	int pixel = 0;
@@ -61,10 +58,8 @@ void Image::FitBN()
 	}
 }
 
-
 // For each pixel in the grayscale image compute the average
 // and set the value in the color image (RGB)
-
 void Image::FitRGB()
 {
 	for (int i = 0; i < dimX * dimY; i++) {
@@ -73,11 +68,9 @@ void Image::FitRGB()
 	}
 }
 
-
 // Load the image from the given path
 // 'type' == 0 means raw grayscale mode (1 byte per pixel)
 // 'type' == 1 means raw color mode interleaved (3 bytes per pixel)
-
 void Image::LoadImage(char* nome, int type)
 {
 	FILE* fhan;
@@ -101,11 +94,9 @@ void Image::LoadImage(char* nome, int type)
 	fclose(fhan);
 }
 
-
 // Save the image on disk to the given path
 // 'type' == 0 means raw grayscale mode (1 byte per pixel)
 // 'type' == 1 means raw color mode interleaved (3 bytes per pixel)
-
 void Image::SaveImage(char* nome, int type)
 {
 	FILE* fhan;
@@ -120,7 +111,6 @@ void Image::SaveImage(char* nome, int type)
 	}
 	fclose(fhan);
 }
-
 
 Image::~Image()
 {

@@ -56,5 +56,7 @@ void Resize(Image* in, Image* out, int width, bool type);
  */
 void Rotation(Image* in, Image* out, float _angle, bool type);
 
-// Compute the RGB channels and brightness histograms
+/**
+ * Compute the RGB channels and brightness histograms
+ */
 void CalculateHistograms(Image* in, bool type);

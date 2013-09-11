@@ -28,13 +28,15 @@
 #include "Image.h"
 using namespace std;
 
-// Scale the image to next power of 2 size via deep copy 
-// Empty pixels are black.
-
+/**
+ * Scale the image to next power of 2 size via deep copy 
+ * Empty pixels are black.
+ */
 void AdjustSizeToPower2(Image* in, int dimX, int dimY, int dimX_original, int dimY_original);
 
-// Call SwapQuadranti on matrices matRe e matIm
-
+/**
+ * Call SwapQuadranti on matrices matRe e matIm
+ */
 void SwapSpectrum(double* matRe, double* matIm, int dimX, int dimY);
 
 /**
@@ -67,7 +69,6 @@ int Powerof2(int n, int* m, int* twopm);
  * original code by Paul Bourke
  * url: http://local.wasp.uwa.edu.au/~pbourke/other/dft/
  */
-
 void FFT2D(double* matRe, double* matIm, int nx, int ny, int dir);
 
 /**

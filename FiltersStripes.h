@@ -36,8 +36,10 @@ using namespace std;
  */
 void LowPass(Image* in, Image* out, int threshold, int kernel_dim, bool type);
 
-// Compute the BellShaped for avoiding hard step of frequencies
-// i.e. the ILPF and the IHPF (Ideal Low/High Pass Filtering)
+/**
+ * Compute the BellShaped for avoiding hard step of frequencies
+ * i.e. the ILPF and the IHPF (Ideal Low/High Pass Filtering)
+ */
 float BellShaped(int x, int y, int Liv, int dimX, int dimY);
 
 /** * LowPass filter *
