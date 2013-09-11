@@ -8,21 +8,20 @@ Course: Elaborazione delle Immagini (Image Analysis) Università degli studi di 
 Website: [albertodebortoli.it](http://www.albertodebortoli.it)   
 
 Compile the project with 'make' command with g++ (tested on version 4.2.1).
-Executable file 'ImageFilters.exe' is generated for your architecture. 
+Executable file 'ImageFilters' is generated for your architecture. 
 
 ##Description and usage
 
-Files in the project:
+Source code files in the project:
 
 - Main.cpp
-- Image.h
-- Image.cpp
-- FiltersPunctual.h
-- FiltersConvolution.h
-- FiltersAdj.h
-- FiltersStripes.h
-- FT.h
-- FFT.h
+- Image.{h,cpp}
+- FiltersPunctual.{h,cpp}
+- FiltersConvolution.{h,cpp}
+- FiltersAdj.{h,cpp}
+- FiltersStripes.{h,cpp}
+- FT.{h,cpp}
+- FFT.{h,cpp}
 
 The project implement the following:
 
@@ -42,7 +41,7 @@ Execution needs at least 7 command line arguments. 6 base arguments and 1 for th
 
 Here is an example of usage with the first 6 arguments:
 
-	./ImageFilters.exe ./img/400x300RGB.raw ./img/output.raw 400 300 1 0
+	./ImageFilters ./img/400x300RGB.raw ./img/output.raw 400 300 1 0
 
 One more argument (at least) is needed for filter application. Filters can be applied sequentially. Filters description follows.
 
@@ -154,28 +153,28 @@ Transform spectrum
 
 Here are the spectrums and the image as result of filter application.  
 Low-pass filter, ideal, threshold = 30  
-syntax: `./ImageFilters.exe ./img/128x128BN.raw ./img/output.raw 128 128 0 0 F l 30 I`
+syntax: `./ImageFilters ./img/128x128BN.raw ./img/output.raw 128 128 0 0 F l 30 I`
 
 ![](http://www.albertodebortoli.it/CS/ImgAn/img/image003.png)
 
 ![](http://www.albertodebortoli.it/CS/ImgAn/img/image004.png)
 
 Low-pass filter, bell shaped, threshold = 30  
-syntax: `./ImageFilters.exe ./img/128x128BN.raw ./img/output.raw 128 128 0 0 F l 30 C`
+syntax: `./ImageFilters ./img/128x128BN.raw ./img/output.raw 128 128 0 0 F l 30 C`
 
 ![](http://www.albertodebortoli.it/CS/ImgAn/img/image005.png)
 
 ![](http://www.albertodebortoli.it/CS/ImgAn/img/image006.png)
 
 High-pass filter, ideal, threshold = 10  
-syntax: `./ImageFilters.exe ./img/128x128BN.raw ./img/output.raw 128 128 0 0 F h 10 I`
+syntax: `./ImageFilters ./img/128x128BN.raw ./img/output.raw 128 128 0 0 F h 10 I`
 
 ![](http://www.albertodebortoli.it/CS/ImgAn/img/image007.png)
 
 ![](http://www.albertodebortoli.it/CS/ImgAn/img/image008.png)
 
 High-pass filter, ideal, threshold = 10  
-syntax: `./ImageFilters.exe ./img/128x128BN.raw ./img/output.raw 128 128 0 0 F h 10 C`
+syntax: `./ImageFilters ./img/128x128BN.raw ./img/output.raw 128 128 0 0 F h 10 C`
 
 ![](http://www.albertodebortoli.it/CS/ImgAn/img/image009.png)
 
