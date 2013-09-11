@@ -33,7 +33,7 @@
 #include "FiltersStripes.h"
 #include "FT.h"
 #include "FFT.h"
-
+#include "Image.h"
 
 using namespace std;
 
@@ -96,7 +96,7 @@ int main(int argc, char* argv[])
 								LowPass(in, out, atoi(argv[i+1]), atoi(argv[i+2]), type); i+=2;
 								cout << "\n\tApplied filter: Low-Pass\n";
 							}
-						else{
+						else {
 							cout << "\nError: missing or wrong filter aruguments\n" << endl;
 							exit(0);
 						}
@@ -254,7 +254,7 @@ int main(int argc, char* argv[])
 										for (int k=0; k<dimX * dimY; k++)
 											out->SetBn(k, (int)matrix[k]);
 									}
-									else{
+									else {
 										for (int c = 0; c < 3; c++) {
 											if (dimX * dimY > 64*64)
 											cout << "\nUse FT only on small images to avoid huge computational time\n" <<
@@ -309,7 +309,7 @@ int main(int argc, char* argv[])
 							Brightness(in, out, atof(argv[i+1]), type); i++;
 							cout << "\n\tApplied filter: Brightness'\n";
 							}
-						else{
+						else {
 							cout << "\n\tError: missing filter aruguments\n" << endl;
 							exit(0);
 						}
@@ -321,7 +321,7 @@ int main(int argc, char* argv[])
 							Gamma(in, out, atof(argv[i+1]), type); i++;
 							cout << "\n\tApplied filter: Gamma Correction\n";
 						}
-						else{
+						else {
 							cout << "\n\tError: missing filter aruguments\n" << endl;
 							exit(0);
 						}
@@ -332,12 +332,12 @@ int main(int argc, char* argv[])
 								Channel(in, out, atof(argv[i+1]), *argv[i+2]); i=i+2;
 								cout << "\n\tApplied filter: Channel\n";
 							}
-							else{
+							else {
 								cout << "\n\tError: missing filter aruguments\n" << endl;
 								exit(0);
 							}
 						}
-						else{
+						else {
 							cout << "\n\tError: filter only for color images\n" << endl;
 							exit(0);
 						}
@@ -351,12 +351,12 @@ int main(int argc, char* argv[])
 								Mirror(in, out, 'Y', type); i++;
 								cout << "\n\tApplied filter: Mirror (vertical)\n";
 							}
-							else{
+							else {
 								cout << "\n\tError: wrong filter aruguments\n" << endl;
 								exit(0);
 							}
 						}
-						else{
+						else {
 							cout << "\n\tError: missing filter aruguments\n" << endl;
 							exit(0);
 						}
@@ -365,7 +365,7 @@ int main(int argc, char* argv[])
 							Pixelize(in, out, atoi(argv[i+1]), type); i++;
 							cout << "\n\tApplied filter: Pixelazer\n";
 						}
-						else{
+						else {
 							cout << "\n\tError: missing or wrong filter aruguments\n" << endl;
 							exit(0);
 						}
@@ -375,7 +375,7 @@ int main(int argc, char* argv[])
 							Smooth(in, out, atoi(argv[i+1]), type); i++;
 							cout << "\n\tApplied filter: Smooth\n";
 						}
-						else{
+						else {
 							cout << "\n\tError: missing or wrong filter aruguments\n" << endl;
 							exit(0);
 						}
@@ -384,7 +384,7 @@ int main(int argc, char* argv[])
 							NoiseRemoval(in, out, atoi(argv[i+1]), type); i++;
 							cout << "\n\tApplied filter: Noise removal\n";
 						}
-						else{
+						else {
 							cout << "\n\tError: missing or wrong filter aruguments\n" << endl;
 							exit(0);
 						}
@@ -402,12 +402,12 @@ int main(int argc, char* argv[])
 								Convolution(in, out, 'O', type); i++;
 								cout << "\n\tApplied filter: Outliner\n";
 							}
-							else{
+							else {
 								cout << "\n\tError: wrong filter aruguments\n" << endl;
 								exit(0);
 							}
 						}
-						else{
+						else {
 							cout << "\n\tError: missing filter aruguments\n" << endl;
 							exit(0);
 						}
@@ -416,7 +416,7 @@ int main(int argc, char* argv[])
 							Rotation(in, out, atof(argv[i+1]), type); i++;
 							cout << "\n\tApplied filter: Rotate\n";
 						}
-						else{
+						else {
 							cout << "\n\tError: missing filter aruguments\n" << endl;
 							exit(0);
 						}
@@ -430,12 +430,12 @@ int main(int argc, char* argv[])
 								Zoom(in, out, '-', atoi(argv[i+2]), type); i=i+2;
 								cout << "\n\tApplied filter: Zoom out\n";
 							}
-							else{
+							else {
 								cout << "\n\tError: wrong filter aruguments\n" << endl;
 								exit(0);
 							}
 						}
-						else{
+						else {
 							cout << "\n\tError: missing filter aruguments\n" << endl;
 							exit(0);
 						}
@@ -444,7 +444,7 @@ int main(int argc, char* argv[])
 							Resize(in, out, atoi(argv[i+1]), type); i++;
 							cout << "\n\tApplied filter: Resize\n";
 						}
-						else{
+						else {
 							cout << "\n\tError: missing or wrong filter aruguments\n" << endl;
 							exit(0);
 						}
@@ -453,7 +453,7 @@ int main(int argc, char* argv[])
 							Grayscale(in, out);
 							cout << "\n\tApplied filter: Grayscale\n";
 						}
-						else{
+						else {
 							cout << "\n\tError: filter only for color images\n" << endl;
 							exit(0);
 						}

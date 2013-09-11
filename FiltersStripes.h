@@ -25,140 +25,33 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef FILTERSSTRIPES_H
-#define FILTERSSTRIPES_H
-
-#include"Image.h"
+#include "Image.h"
 using namespace std;
 
+/** * LowPass filter *
+ * 
+ * Cuts off high frequencies
+ * 'threshold' is the cut off value and 'kernel_dim' is the kernel dimension
+ * and result in a stronger or weaker filter effect.
+ */
 void LowPass(Image* in, Image* out, int threshold, int kernel_dim, bool type);
-float BellShaped(int x, int y, int Liv, int dimX, int dimY);
-void LowPassFilter(int Liv, double* matRe, double* matIm, int dimX, int dimY, bool ideal);
-void HighPassFilter(int Liv, double* matRe, double* matIm, int dimX, int dimY, bool ideal);
-
-
-// * LowPass filter *
-// 
-// Cuts off high frequencies
-// 'threshold' is the cut off value and 'kernel_dim' is the kernel dimension
-// and result in a stronger or weaker filter effect.
-
-void LowPass(Image* in, Image* out, int threshold, int kernel_dim, bool type)
-{
-	int dimX = in->getX();
-	int dimY = in->getY();
-	int media[3];
-	int diff, i, j, m_rgb, m_pixel;
-	int* rgb;
-
-	if (!type) {
-		for (i = 0; i < dimY; i++) {
-			for (j = 0; j < dimX; j++) {
-				media[0] = *FindAverage(in, j, i, kernel_dim, media, type);
-				diff = abs(in->GetBn(j + (i * dimX)) - media[0]);
-				
-				// the lower the 'threshold' is the stronger is the filter
-				if (diff > threshold) out->SetBn(j + (i * dimX), media[0]);
-				else out->SetBn(j + (i * dimX), in->GetBn(j + (i * dimX)));
-			}
-		}
-	}
-	
-	if (type) {
-		for (i = 0; i < dimY; i++) {
-			for (j = 0; j < dimX; j++) {
-				rgb = FindAverage(in, j, i, kernel_dim, media, type);
-				m_pixel = (in->GetRgb(j + (i * dimX), 0) + in->GetRgb(j + (i * dimX), 1) + in->GetRgb(j + (i * dimX), 2)) / 3;
-				m_rgb = (rgb[0] + rgb[1] + rgb[2])/3;
-				diff = abs(m_pixel - m_rgb);
-				if (diff > threshold) {
-					out->SetRgb(j + (i * dimX), 0, rgb[0]);
-					out->SetRgb(j + (i * dimX), 1, rgb[1]);
-					out->SetRgb(j + (i * dimX), 2, rgb[2]);
-				}
-				else{
-					out->SetRgb(j + (i * dimX), 0, in->GetRgb(j + (i * dimX), 0));
-					out->SetRgb(j + (i * dimX), 1, in->GetRgb(j + (i * dimX), 1));
-					out->SetRgb(j + (i * dimX), 2, in->GetRgb(j + (i * dimX), 2));
-				}
-			}
-		}
-	}
-}
-
 
 // Compute the BellShaped for avoiding hard step of frequencies
 // i.e. the ILPF and the IHPF (Ideal Low/High Pass Filtering)
+float BellShaped(int x, int y, int Liv, int dimX, int dimY);
 
-float BellShaped(int x, int y, int Liv, int dimX, int dimY)
-{
-	float d;
-	x-= dimX/2;
-	y-= dimY/2;
-	d = sqrt(x*x*y*y);
-	return (exp(-d/Liv));
-}
+/** * LowPass filter *
+ * 
+ * Cuts off high frequencies on FFT transform
+ * 'ideal' == true means Ideal filtering
+ * 'ideal' == false means BellShaped filtering
+ */
+void LowPassFilter(int Liv, double* matRe, double* matIm, int dimX, int dimY, bool ideal);
 
-
-// * LowPass filter *
-// 
-// Cuts off high frequencies on FFT transform
-// 'ideal' == true means Ideal filtering
-// 'ideal' == false means BellShaped filtering
-
-void LowPassFilter(int Liv, double* matRe, double* matIm, int dimX, int dimY, bool ideal)
-{
-	int dx, dy;
-	for (int y = 0; y < dimY; y++) {
-		for (int x = 0 ; x < dimX; x++) {
-			
-			double k;
-			if (ideal)
-				k = 1;
-			else
-				k = BellShaped(x, y, Liv, dimX, dimY);
-			
-			matRe[x + (y * dimX)] *= k;
-			matIm[x + (y * dimX)] *= k;
-			dx = x - (dimX / 2);
-			dy = y - (dimY / 2);
-			if (sqrt(dx * dx + dy * dy) > Liv) {
-				matRe[x + (y * dimX)] = 0;
-				matIm[x + (y * dimX)] = 0;
-			}
-		}
-	}
-}
-
-
-// * HighPass filter *
-// 
-// Cuts off low frequencies on FFT transform
-// 'ideal' == true means Ideal filtering
-// 'ideal' == false means BellShaped filtering
-
-void HighPassFilter(int Liv, double* matRe, double* matIm, int dimX, int dimY, bool ideal)
-{
-	int dx, dy;
-	for (int y = 0; y < dimY; y++) {
-		for (int x = 0 ; x < dimX; x++) {
-			double k;
-			
-			if (ideal)
-				k = 1;
-			else
-				k = BellShaped(x, y, Liv, dimX, dimY);
-			
-			matRe[x + (y * dimX)] *= (3 -2*k);
-			matIm[x + (y * dimX)] *= (3 -2*k);
-			dx = x - (dimX / 2);
-			dy = y - (dimY / 2);
-			if (sqrt(dx * dx + dy * dy) < Liv) {
-				matRe[x + (y * dimX)] = 0;
-				matIm[x + (y * dimX)] = 0;
-			}
-		}
-	}
-}
-
-#endif
+/** * HighPass filter *
+ *
+ * Cuts off low frequencies on FFT transform
+ * 'ideal' == true means Ideal filtering
+ * 'ideal' == false means BellShaped filtering
+ */
+void HighPassFilter(int Liv, double* matRe, double* matIm, int dimX, int dimY, bool ideal);
