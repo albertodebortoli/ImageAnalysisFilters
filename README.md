@@ -1,6 +1,6 @@
 #Image Analysis Filters
 
-A simple C++ project for applying filters to raw images in terminal
+A simple C++ project for applying filters to raw images via command line.
 
 Author: Alberto De Bortoli  
 Date: august 2008  
